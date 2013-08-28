@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<!-- # didn't use -->
+<mapper namespace="com.bupt.app.auth.model.Test">
+	<insert id="add" parameterType="Test"
+		useGeneratedKeys="true" keyProperty="classId" >
+		INSERT INTO testtable (NAME,DATE) 
+		VALUES(#{name},#{birthday,jdbcType=DATE})
+	</insert>
+</mapper>

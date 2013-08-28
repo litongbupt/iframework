@@ -1,0 +1,82 @@
+@charset "utf-8";
+/************* common elements ************/
+body{font:12px/1.5 Tahoma;}
+h1{padding:10px 0; margin-bottom:10px; color:#666; border-bottom:1px solid #ccc; font-size:18px;}
+.con{color:#666; padding:10px 20px; background:#FFC;}
+.con ul{padding:0 10px;}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td{padding:0;margin:0;}
+ol,ul{list-style:none}
+.section{
+	margin: 0 10px 0 0;
+	background: #f1f1f1;
+	border:1px solid #d6d6d6;
+	scrollbar-3dlight-color:#999; 
+	scrollbar-arrow-color:#FFFFFF; 
+	scrollbar-track-color:#ccc; 
+	scrollbar-darkshadow-color:#FFFFFF; 
+	scrollbar-face-color:#ccc; 
+	scrollbar-highlight-color:#FFFFFF; 
+	scrollbar-shadow-color:#999;
+	overflow-y:auto;	
+}
+.section .section-content{ overflow-y:auto;}
+.section .section-hr-head{
+	background: url(../../images/content-section-hr-head.gif) top left repeat-x;
+	margin-top: 1px;
+	/*width:90%;*/
+	height:37px;
+}
+.section-hr-head a{
+color:#000;
+	font-family:"微软雅黑";
+	text-decoration:none;
+	font-size:15px;font-weight:bold;
+	line-height:22px;
+	position:relative;
+	top:-10px;
+	left:0px;
+	cursor:pointer;
+}
+.section-hr-head a:hover{
+	color:#999;
+}
+.section .section-hr-content {
+	padding: 0px;
+	padding-bottom:20px;
+	font-size: 13px;
+	border-top: 1px solid #fff;
+}
+.section .section-hr-head-2{line-height:30px;text-align:center;font-weight:bold;font-family:华文中宋;font-size:16px;}
+/************* form elements ************/
+.portlert-form-list{position:relative;margin:10px 0 0 0;font-size:12px; line-height:1.5; font-family:Tahoma;}
+.portlert-form-list .portlert-form-position-right{position:absolute; right:10px; top:0;}
+.portlert-form-list .portlert-form-input-field{height: 25px; padding-left:3px; line-height:25px;background-color:#FFFFFF; border:1px solid #BeBeBe; border-right-color:#e1e1e1; border-bottom-color:#e1e1e1;vertical-align:middle;width:180px;}
+.portlert-form-list .portlert-form-row{margin-bottom:6px; }/*每行间距*/
+.portlert-form-list input{vertical-align:middle;}
+.portlert-form-list .portlert-form-label{display:inline-block; width:110px; *display:inline; *zoom:1; text-align:right; vertical-align:middle;}/*width控制左列宽,text-align设置对齐方式*/
+.portlert-form-list .portlert-form-content {display:inline-block;*display: inline;*zoom:1;width: 62px; height: 27px; background: url(../../images/fileButton.jpg) no-repeat scroll 0 0 transparent; }
+.portlert-form-list .portlert-form-content-input {height:27px; width:180px;cursor: pointer; filter:alpha(opacity:0);opacity: 0;margin-left: -115px;}
+
+.portlert-form-list label.portlert-form-font-vt{vertical-align:top;}
+.portlert-form-list label.portlert-form-font-vb{vertical-align:bottom;}
+.portlert-form-list .portlert-form-label em{color:red; margin-right:5px; font-family:simsun; font-style:normal;}
+.portlert-form-list .portlert-form-collection{display:inline-block; *display:inline; *zoom:1; vertical-align:middle;}
+.portlert-form-list .portlert-form-label-rc{ margin-right:10px;}
+.portlert-form-list .portlert-form-label-rc input{vertical-align:text-top; width:13px; height:15px;  margin-right:5px;}
+.portlert-form-list select{border:1px solid #bbb; vertical-align:middle;font-family:Tahoma; font-size:12px;color:black;}
+.portlert-form-list .portlert-form-select{height:25px; width:185px;}
+.portlert-form-list select option{color:black; vertical-align:middle; padding-bottom:3px;}
+.portlert-form-list .portlert-form-textarea{padding:3px; border:1px solid #bbb; width:400px; height:60px; font:12px/1.5em Tahoma;overflow-y:auto;}
+.portlert-form-list span.portlert-form-msg-alert,
+.portlert-form-list span.portlert-form-msg-alert label{color:red;}
+.portlert-form-list span.portlert-form-msg-note{color:#999; padding-left:5px;}
+.portlert-form-list span.portlert-form-warning{color:#999;margin-left:26px;}
+.portlert-form-list p.portlert-form-msg-alert{color:red; padding-left:0; padding-top:3px;}
+.portlert-form-list .portlert-form-button-disEdit{overflow:visible; width: 62px;height: 27px;line-height:24px; background: url(../../images/content-button-disable.jpg) left top no-repeat;border:none !important;color:#000; cursor:pointer;}
+
+.portlert-form-list .portlert-form-file{vertical-align:middle; *height:25px;}
+.portlert-form-list .portlert-form-file-box{ position:relative;}
+.portlert-form-list .portlert-form-file-change{ position:absolute; top:7px;left:-5px; height:24px; filter:alpha(opacity:0);opacity: 0;width:260px;}
+/*重定义弹出窗口样式*/
+.ui-tabs .portlert-form-row{overflow:hidden}
+

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration  
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"  
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd"> 
+<generatorConfiguration>
+ 	<!-- 
+      url     指定属性文件绝对路径。注意与指定数据库jdbc驱动jar包路径的区别哈。 
+                    可以使用${property}的格式引用属性文件中的属性值。 
+    <properties url="D:/WorkSpace/SSIStudy/ibator-config.properties"/>
+    -->
+    <!-- 
+      classPathEntry 指定数据库jdbc驱动jar包的绝对路径。 可为为空
+      The full path name of a JAR/ZIP file to add to the classpath, or a directory to add to the classpath
+    -->
+    <classPathEntry location="/Users/litong/.m2/repository/mysql/mysql-connector-java/5.1.21/mysql-connector-java-5.1.21.jar" />
+      <!-- 
+      id                 这个id可以在使用命令行运行Mybatis generator时指定，以单独处理某一个Context 
+      targetRuntime        Ibatis2Java5 生成适合JDK5.0的类;Ibatis2Java2，生成适合Java2的类;MyBatis3 生成Mybatis的类
+    --> 
+  <context id="context1" targetRuntime="MyBatis3">
+  	<!-- 可以没有此属性。如果指定则必须有替换和被替换字符属性。
+  	<plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin"> 
+             <property name="searchString" value="Example$" /> 
+             <property name="replaceString" value="Criteria" /> 
+    </plugin>
+    -->
+	<!--   driverClass        数据库驱动类  这里连接mysql
+           connectionURL      数据库连接地址 
+           userId             用户 
+           password           密码 
+            还可以使用以下格式添加数据库的其他连接属性
+           <property name="" value=""/>  -->
+    <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/iframework" userId="root" password="yang1290">
+    	<property name="useUnicode" value="true"/>
+    	<property name="characterEncoding" value="UTF-8"/>
+    	<property name="zeroDateTimeBehavior" value="convertToNull"/>
+    </jdbcConnection>
+     <javaTypeResolver > 
+           <!-- 
+                   默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer 
+                   true，把JDBC DECIMAL 和 NUMERIC 类型解析为java.math.BigDecimal 
+           -->  
+           <property name="forceBigDecimals" value="false" /> 
+     </javaTypeResolver>
+     <!-- //When running outside of an IDE environment like Eclipse, Ibator interprets the targetProject and targetPackage attributes in all XML configurations as follows
+           targetProject        生成的Java Bean放置在哪个项目的哪个目录下 
+           targetPackage        生成的Java Bean的包名  
+     -->
+    <javaModelGenerator targetPackage="com.bupt.core.system.model" targetProject="Base Framework For JavaEE/src/main/java/">
+    	<!-- 是否在包名后加上scheme名称 -->
+        <property name="enableSubPackages" value="true" />
+        <!-- 从数据库返回的值被清理前后的空格 -->
+     	<property name="trimStrings" value="true" />
+    </javaModelGenerator>
+      <!-- 
+           targetProject        生成的 SqlMap.xml 文件放置在哪个项目的哪个目录下 
+           targetPackage        生成的 SqlMap.xml 文件的包名 
+      --> 
+    <sqlMapGenerator targetPackage="com.bupt.core.system.dao" targetProject="Base Framework For JavaEE/src/main/java/">
+   		 <property name="enableSubPackages" value="true" />
+    </sqlMapGenerator>
+    <!-- type 生成dao文件的类型，可选择IBATIS、SPRING、GENERIC-CI、GENERIC-SI。默认使用GENERIC-CI  -->
+    <javaClientGenerator targetPackage="com.bupt.core.system.dao" targetProject="Base Framework For JavaEE/src/main/java/" type="XMLMAPPER">
+    	<property name="enableSubPackages" value="true" />
+    </javaClientGenerator>
+     <!-- 
+           tableName 数据库表明，据说可以包含SQL通配符%和_。 
+           domainObjectName 数据库表对应的数据对象名称，默认使用表名作为对象名称。 
+     -->
+	<!--
+     <table tableName="t_security_privilege"  domainObjectName="Privilege">
+     	<generatedKey column="privilege_id" sqlStatement="MySql" identity="true"/>
+     </table>
+     <table tableName="t_security_user"  domainObjectName="User">
+     	<generatedKey column="user_id" sqlStatement="MySql" identity="true"/>
+     </table>
+          <table tableName="t_security_role"  domainObjectName="Role">
+     	<generatedKey column="role_id" sqlStatement="MySql" identity="true"/>
+     </table>
+       -->
+     <table tableName="t_security_user_info"  domainObjectName="UserInfo">
+     	<generatedKey column="user_info_id" sqlStatement="MySql" identity="true"/>
+     </table>
+
+     <table tableName="t_security_department"  domainObjectName="Department">
+     	<generatedKey column="department_id" sqlStatement="MySql" identity="true"/>
+     </table>
+     <!--
+    <table tableName="t_security_user" domainObjectName="User">
+      -->
+      <!-- 
+           对象的属性名是否使用字段名称,默认为true
+           <property name="stuname" value="stuname"/> 
+      --> 
+       <!-- 
+               column    自增长或使用sequence生成的字段名 
+               sqlStatement 生成字段的sql片段或其简称(参考官方文档) 
+               identity    true表示后生成，false表示预生成                 
+        
+      <generatedKey column="id" sqlStatement="MySql" identity="true"/> --> 
+          <!-- 
+                   数据库字段名称到对象属性名称的影射关系。就是一个替换处理。 
+          
+      <columnRenamingRule searchString="^CUST_" replaceString="" />  --> 
+       <!-- 
+                   column  字段名 
+                   property 字段对应的属性名。(默认使用字段名的) 
+                   javaType 对应的Java类型 
+                   jdbcType 对应的jdbc类型 
+                   这里的设置覆写javaTypeResolver中的指定 
+          
+      <columnOverride column="NAME" property="Name" />--> 
+       <!-- 
+               column    需要忽略的数据库字段 
+       <ignoreColumn column="DATE" />   --> 
+       <!-- 
+    </table>
+      -->
+  </context>
+</generatorConfiguration>

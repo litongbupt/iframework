@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!--  didn't use -->
+<configuration>
+	<!-- MyBatis 按照如下的顺序加载它们 1.在 properties 元素体内指定的属性首先被读取。 2.从类路径下资源或 properties 
+		元素的 url 属性中加载的属性第二被读取,它会 覆盖已经存在的完全一样的属性。 3.作为方法参数传递的属性最后被读取,它也会覆盖任一已经存在的完全一样的 
+		属性,这些属性可能是从 properties 元素体内和资源/url 属性中加载的。 -->
+	<properties resource="com/bupt/mybatis/config.properties">
+		<property name="username" value="root" />
+		<property name="password" value="yang1290" />
+	</properties>
+
+	<settings>
+		<!-- 这个配置使全局的映射器启用或禁用缓存。|true,false|true -->
+		<setting name="cacheEnabled" value="true" />
+		<!-- 全局启用或禁用延迟加载。当禁用时,所有关联对象都会即时加载。|true,false|true -->
+		<setting name="lazyLoadingEnabled" value="true" />
+		<!-- 当启用时,有延迟加载属性的对象在被调用时将会完全加载任意属性。否则, 每种属性将会按需要加载。|true,false|true -->
+		<setting name="aggressiveLazyLoading" value="true" />
+		<!-- 允许或不允许多种结果集从一个单独 的语句中返回(需要适合的驱动)。|true,false|true -->
+		<setting name="multipleResultSetsEnabled" value="true" />
+		<!-- 使用列标签代替列名。不同的驱动在这 方便表现不同。参考驱动文档或充分测试两种方法来决定所使用的驱动。|true,false|true -->
+		<setting name="useColumnLabel" value="true" />
+		<!-- 允许 JDBC 支持生成的键。需要适合的驱动。如果设置为 true 则这个设置强制生成的键被使用,尽管一些驱动拒绝兼容但仍然有效(比如 
+			Derby)。|true,false|false -->
+		<setting name="useGeneratedKeys" value="false" />
+		<!-- 指定 MyBatis 如何自动映射列到字段/属性。PARTIAL只会自动映射简单, 没有嵌套的结果。FULL会自动映射任意复杂的结果(嵌套的或其他情况)。|NONE, 
+			PARTIAL, FULL| PARTIAL -->
+		<setting name="autoMappingBehavior" value="PARTIAL" />
+		<!-- 配置默认的执行器。SIMPLE 执行器没 有什么特别之处。REUSE 执行器重用 预处理语句。BATCH 执行器重用语句和批量更新 
+			|SIMPLE, REUSE, BATCH|SIMPLE -->
+		<setting name="defaultExecutorType" value="SIMPLE" />
+		<!-- 设置超时时间,它决定驱动等待一个数据库响应的时间。| Any positive integer |Not Set (null) -->
+		<setting name="defaultStatementTimeout" value="25000" />
+	</settings>
+
+	<!-- 类型别名是为 Java 类型命名一个短的名字。它只和 XML 配置有关,只用来减少类完全 限定名的多余部分。 -->
+	<typeAliases>
+		<typeAlias alias="Test" type="com.bupt.app.auth.model.TestTable" />
+	</typeAliases>
+
+<!-- 
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC" />
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}" />
+                <property name="url" value="${url}" />
+                <property name="username" value="${username}" />
+                <property name="password" value="${password}" />
+            </dataSource>
+        </environment>
+    </environments>
+ 
+    <mappers>
+        <mapper resource="com/bupt/mybatis/Test.xml"/>
+    </mappers>-->
+
+</configuration>

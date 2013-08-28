@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<beans xmlns="http://www.springframework.org/schema/beans" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:context="http://www.springframework.org/schema/context" 
+    xmlns:aop="http://www.springframework.org/schema/aop" 
+    xmlns:tx="http://www.springframework.org/schema/tx" 
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
+http://www.springframework.org/schema/context 
+http://www.springframework.org/schema/context/spring-context-2.5.xsd 
+http://www.springframework.org/schema/aop 
+http://www.springframework.org/schema/aop/spring-aop-2.5.xsd 
+http://www.springframework.org/schema/tx 
+http://www.springframework.org/schema/tx/spring-tx-2.5.xsd"> 
+   
+   <!-- 
+    <import resource="ApplicationContext-security.xml"/>
+     -->
+     <!-- jdbc.properties文件路径  --> 
+    <bean 
+        class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"> 
+        <property name="locations" 
+        value="classpath:/com/bupt/config/jdbc.properties" /> 
+    </bean>
+     
+    <!-- 数据源的配置 --> 
+    <bean id="dataSource1" class="org.apache.commons.dbcp.BasicDataSource" 
+        destroy-method="close"> 
+        <property name="driverClassName" value="${driver1}" /> 
+        <property name="url" value="${url1}" /> 
+        <property name="username" value="${user1}" /> 
+        <property name="password" value="${password1}" /> 
+        <!-- data source configuration --> 
+        <property name="initialSize" value="60" /><!-- initial connections --> 
+        <property name="maxActive" value="100" /><!-- MAX connections --> 
+        <property name="maxIdle" value="50" /><!-- MAX idle connections --> 
+        <property name="minIdle" value="10" /><!-- MIN idle connections --> 
+        <!-- 处理mysql 8小时自动断开连接的问题 --> 
+        <property name="testWhileIdle" value="true" /> 
+        <property name="testOnBorrow" value="false" /> 
+        <property name="testOnReturn" value="false" /> 
+        <property name="validationQuery" value="select 1" /> 
+        <property name="timeBetweenEvictionRunsMillis" value="20000" /> 
+        <property name="numTestsPerEvictionRun" value="100" /> 
+    </bean> 
+    
+    <bean id="dataSource2" class="org.apache.commons.dbcp.BasicDataSource" 
+        destroy-method="close"> 
+        <property name="driverClassName" value="${driver2}" /> 
+        <property name="url" value="${url2}" /> 
+        <property name="username" value="${user2}" /> 
+        <property name="password" value="${password2}" /> 
+        <!-- data source configuration --> 
+        <property name="initialSize" value="60" /><!-- initial connections --> 
+        <property name="maxActive" value="100" /><!-- MAX connections --> 
+        <property name="maxIdle" value="50" /><!-- MAX idle connections --> 
+        <property name="minIdle" value="10" /><!-- MIN idle connections --> 
+        <!-- 处理mysql 8小时自动断开连接的问题 --> 
+        <property name="testWhileIdle" value="true" /> 
+        <property name="testOnBorrow" value="false" /> 
+        <property name="testOnReturn" value="false" /> 
+        <property name="validationQuery" value="select 1" /> 
+        <property name="timeBetweenEvictionRunsMillis" value="20000" /> 
+        <property name="numTestsPerEvictionRun" value="100" /> 
+    </bean> 
+
+    <!--====事务相关控制==--> 
+    <bean id="transactionManager1" 
+        class="org.springframework.jdbc.datasource.DataSourceTransactionManager"> 
+        <property name="dataSource" ref="dataSource1" /> 
+    </bean> 
+    <tx:advice id="userTxAdvice1" transaction-manager="transactionManager1"> 
+        <tx:attributes> 
+        <!-- 没有配置只读 -->
+      		<tx:method name="validate" propagation="REQUIRED" read-only="true" 
+                rollback-for="java.lang.Exception"/> 
+            <tx:method name="*" propagation="REQUIRED" read-only="false" 
+                rollback-for="java.lang.Exception"/> 
+        </tx:attributes> 
+    </tx:advice> 
+    <aop:config> 
+        <aop:pointcut id="pc1" 
+            expression="execution(* com.bupt.core.*.service..*.*(..))" /> 
+             <!-- 把事务控制在Business层 --> 
+        <aop:advisor pointcut-ref="pc1" advice-ref="userTxAdvice1" /> 
+    </aop:config> 
+    
+    <bean id="transactionManager2" 
+        class="org.springframework.jdbc.datasource.DataSourceTransactionManager"> 
+        <property name="dataSource" ref="dataSource2" /> 
+    </bean> 
+    <tx:advice id="userTxAdvice2" transaction-manager="transactionManager2"> 
+        <tx:attributes> 
+        <!-- 没有配置只读 -->
+      		<tx:method name="validate" propagation="REQUIRED" read-only="true" 
+                rollback-for="java.lang.Exception"/> 
+            <tx:method name="*" propagation="REQUIRED" read-only="false" 
+                rollback-for="java.lang.Exception"/> 
+        </tx:attributes> 
+    </tx:advice> 
+    <aop:config> 
+        <aop:pointcut id="pc2" 
+            expression="execution(* com.bupt.app.*.service..*.*(..))" /> 
+             <!-- 把事务控制在Business层 --> 
+        <aop:advisor pointcut-ref="pc2" advice-ref="userTxAdvice2" /> 
+    </aop:config>     
+    
+    <!-- MyBatis sqlSessionFactory 配置 mybatis--> 
+    <bean id="sqlSessionFactory1" class="org.mybatis.spring.SqlSessionFactoryBean"> 
+        <property name="dataSource" ref="dataSource1" /> 
+		<!--
+			该属性用来指定MyBatis的XML配置文件路径,跟Spring整合时，编写MyBatis映射文件的目的无非是配置一下typeAlias、setting之类的
+			元素。不用在其中指定数据源，或者事务处理方式。就算配置了也会被忽略。因为这些都是使用Spring中的配置
+			。当然如果你不打算添加typeAlias 之类的设置的话，你连MyBatis的配置文件都不用写，更不用配置这个属性了
+		-->
+		<!--<property name="configLocation" value="classpath:/com/bupt/mybatis/SqlMapConfig.xml" /> -->
+		<!-- 该配置文件用来指定Mapper映射文件的位置 ，如果映射文件与相应的接口同名，且在同一路径下，那么可以不配置该选项,也可以在MybatisConfig.xml文件里配置mapper-->
+   		<!--<property name="mapperLocations" value="src/UserMapper.xml"/>-->
+   		<!-- 要映射类的包路径，如果使用了这种方式，则configLocation中不必再进行声明
+    	<property name="typeAliasesPackage" value="${mybatis.alias.basepackage}" />   -->
+    </bean> 
+    <bean id="sqlSessionFactory2" class="org.mybatis.spring.SqlSessionFactoryBean"> 
+        <property name="dataSource" ref="dataSource2" /> 
+    </bean> 
+    <!--  注册Mapper，有4种方式详见 http://litongbupt.iteye.com/blog/1893793 选以下方式的原因是可以配置多个数据库-->
+    <!-- 部门Mapper -->
+	<bean id="departmentMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">  
+ 		 <property name="mapperInterface" value="com.bupt.core.system.dao.DepartmentMapper" />  
+ 		 <property name="sqlSessionFactory" ref="sqlSessionFactory1" />  
+	</bean>
+	<!-- 用户Mapper -->
+	<bean id="userMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">  
+ 		 <property name="mapperInterface" value="com.bupt.core.system.dao.UserMapper" />  
+ 		 <property name="sqlSessionFactory" ref="sqlSessionFactory1" />  
+	</bean>
+	<!-- 角色Mapper -->
+	<bean id="roleMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">  
+ 		 <property name="mapperInterface" value="com.bupt.core.security.dao.RoleMapper" />  
+ 		 <property name="sqlSessionFactory" ref="sqlSessionFactory1" />  
+	</bean>
+     
+	 <!--返回课程信息，课程树json-->
+	<bean id="courseMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">  
+ 		 <property name="mapperInterface" value="com.bupt.core.security.dao.CourseMapper" />  
+ 		 <property name="sqlSessionFactory" ref="sqlSessionFactory1" />  
+	</bean>
+	
+	<!--用户角色Mapper-->
+	<bean id="userRoleMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">  
+ 		 <property name="mapperInterface" value="com.bupt.core.system.dao.UserRoleMapper" />  
+ 		 <property name="sqlSessionFactory" ref="sqlSessionFactory1" />  
+	</bean>
+	
+	<!-- 用户信息Mapper -->
+	<bean id="userInfoMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">  
+ 		 <property name="mapperInterface" value="com.bupt.core.system.dao.UserInfoMapper" />  
+ 		 <property name="sqlSessionFactory" ref="sqlSessionFactory1" />  
+	</bean>
+</beans>

@@ -1,0 +1,45 @@
+目前存在的问题是，系统会在初始化时一次将所有资源加载到内存中，即使在数据库中修改了资源信息，系统也不会再次去从数据库中读取资源信息。这就造成了每次修改完数据库后，都需要重启系统才能时资源配置生效。
+
+解决方案是，如果数据库中的资源出现的变化，需要刷新内存中已加载的资源信息时，使用下面代码：
+
+<%@page import="org.springframework.context.ApplicationContext"%>
+<%@page import="org.springframework.web.context.support.WebApplicationContextUtils"%>
+<%@page import="org.springframework.beans.factory.FactoryBean"%>
+<%@page import="org.springframework.security.web.access.intercept.FilterSecurityInterceptor"%>
+<%@page import="org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource"%>
+<%
+    ApplicationContext ctx =  WebApplicationContextUtils.getWebApplicationContext(application);
+    FactoryBean factoryBean = (FactoryBean) ctx.getBean("&filterInvocationSecurityMetadataSource");
+    FilterInvocationSecurityMetadataSource fids = (FilterInvocationSecurityMetadataSource) factoryBean.getObject();
+    FilterSecurityInterceptor filter = (FilterSecurityInterceptor) ctx.getBean("filterSecurityInterceptor");
+    filter.setSecurityMetadataSource(fids);
+%>
+<jsp:forward page="/"/>
+    
+2.MD5和盐值加密要自己写
+
+3.用户读取部分使用缓存
+
+4.获取当前用户信息
+
+如果只是想从页面上显示当前登陆的用户名，可以直接使用Spring Security提供的taglib。
+
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<div>username : <sec:authentication property="name"/></div>
+        
+如果想在程序中获得当前登陆用户对应的对象。
+
+UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
+    .getAuthentication()
+    .getPrincipal();
+        
+如果想获得当前登陆用户所拥有的所有权限。
+
+Collection<GrantedAuthority> authorities = (Collection<GrantedAuthority>) userDetails.getAuthorities();;
+
+5.多个用户同时登陆的问题
+
+6.解决会话伪造        
+
+
+7.组织(department)改成organ

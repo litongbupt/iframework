@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/security
+    http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+	<http pattern="/login.jsp" security="none"/>
+	<!-- <http>标签不能配置auto-config，因为这样配置后，依然会采用Spring Security的Filter Chain会与下面我们配的custom-filter冲突 -->
+	<http entry-point-ref="authenticationProcessingFilterEntryPoint"> 
+		  <logout logout-success-url="/login.jsp" logout-url="/logout.jsp" invalidate-session="true"/>
+		  <remember-me />
+		  <!-- <intercept-url pattern="/**" access="ROLE_USER"/> -->
+		  <session-management>
+		  	<concurrency-control max-sessions="1" error-if-maximum-exceeded="true"/> 
+		  </session-management>
+		  <!-- exception-if-maximum-exceeded="false" 允许几个人登录
+		  <session-management invalid-session-url="/logout.jsp">  
+             <concurrency-control max-sessions="100" error-if-maximum-exceeded="false" />  
+          </session-management> 
+		  <remember-me />-->
+          <!-- 
+          <http-basic />
+          <session-management>
+        	<concurrency-control max-sessions="1" error-if-maximum-exceeded="false"/>
+        </session-management>
+           -->
+          <!-- 处理ajax请求 -->
+          <access-denied-handler ref="accessDeniedHandler"/>
+          
+          <custom-filter  position="FORM_LOGIN_FILTER"  ref="loginFilter"/>
+          <custom-filter before="FILTER_SECURITY_INTERCEPTOR"  ref="securityFilter" />
+	</http>
+	
+	<beans:bean id="accessDeniedHandler"   class="com.bupt.core.security.filter.MyAccessDeniedHandlerImpl"> 
+		<beans:property name="accessDeniedUrl" value="403.jsp" />  
+  	</beans:bean>  
+	
+	<!-- 登录验证器 -->
+	<beans:bean id="loginFilter"  
+        class="com.bupt.core.security.filter.MyUsernamePasswordAuthenticationFilter">  
+        <!-- 处理登录的action -->  
+        <beans:property name="filterProcessesUrl" value="/j_spring_security_check"></beans:property>  
+         <!-- 验证成功后的处理-->  
+        <beans:property name="authenticationSuccessHandler" ref="loginLogAuthenticationSuccessHandler"></beans:property>  
+        <!-- 验证失败后的处理-->  
+        <beans:property name="authenticationFailureHandler" ref="simpleUrlAuthenticationFailureHandler"></beans:property>
+        <!-- 用户拥有的权限 -->  
+        <beans:property name="authenticationManager" ref="myAuthenticationManager"></beans:property>  
+        <!-- 注入DAO为了查询相应的用户 -->  
+        <beans:property name="authService" ref="authService"></beans:property>  
+    </beans:bean>
+    
+	<beans:bean id="loginLogAuthenticationSuccessHandler"  
+        class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">  
+        <beans:property name="defaultTargetUrl" value="/index.jsp"></beans:property>  
+    </beans:bean>  
+    <beans:bean id="simpleUrlAuthenticationFailureHandler"  
+        class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">  
+        <!-- 可以配置相应的跳转方式。属性forwardToDestination为true采用forward false为sendRedirect -->  
+        <beans:property name="defaultFailureUrl" value="/login.jsp?error=true"></beans:property>  
+    </beans:bean>  
+	
+
+	<!-- 认证过滤器 -->
+     <beans:bean id="securityFilter" class="com.bupt.core.security.filter.MyFilterSecurityInterceptor">  
+        <!-- 用户拥有的权限 -->
+        <beans:property name="authenticationManager"  ref="myAuthenticationManager" />  
+        <!-- 用户是否拥有所请求资源的权限 --> 
+        <beans:property name="accessDecisionManager"  ref="myAccessDecisionManagerBean" />  
+        <!-- 资源与权限对应关系 --> 
+        <beans:property name="securityMetadataSource"  ref="securityMetadataSource" />  
+    </beans:bean>  
+      
+    <!-- 认证管理器，实现用户认证的入口，主要实现UserDetailsService接口 -->  
+    <authentication-manager alias="myAuthenticationManager">  
+        <authentication-provider  
+            user-service-ref="myUserDetailServiceImpl">  
+            <!--    如果用户的密码采用加密的话，可以加点“盐”  
+                 <password-encoder hash="md5" ><salt-source /></password-encoder>
+            -->  
+        </authentication-provider>  
+    </authentication-manager>  
+    
+    <beans:bean id="myUserDetailServiceImpl"  
+         class="com.bupt.core.security.service.impl.MyUserDetailServiceImpl" >
+    	<beans:property name="userMapper" ref="userMapper"/>     
+    </beans:bean>  
+  
+    <!-- 访问决策器，决定某个用户具有的角色，是否有足够的权限去访问某个资源 -->  
+    <beans:bean id="myAccessDecisionManagerBean"  
+         class="com.bupt.core.security.filter.MyAccessDecisionManager">  
+    </beans:bean>  
+      
+    <!-- 资源源数据定义，即定义某一资源可以被哪些角色访问 -->  
+    <beans:bean id="securityMetadataSource"  
+         class="com.bupt.core.security.filter.MyInvocationSecurityMetadataSource" />  
+  
+    <!-- 未登录的切入点 -->  
+    <beans:bean id="authenticationProcessingFilterEntryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">  
+        <beans:property name="loginFormUrl" value="/login.jsp"></beans:property>  
+    </beans:bean>  
+    
+    <beans:bean id="authService" class="com.bupt.core.security.service.impl.AuthServiceImpl">
+    	<beans:property name="userMapper" ref="userMapper"></beans:property>  
+    </beans:bean>
+</beans:beans>
