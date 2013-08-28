@@ -3,7 +3,7 @@
   type="WEB"
   name="iframework"
   id="myeclipse.1372213456697"
-  context-root="/framework"
+  context-root="/iframework"
   j2ee-spec="6.0"
   archive="iframework.war">
   <attributes>
