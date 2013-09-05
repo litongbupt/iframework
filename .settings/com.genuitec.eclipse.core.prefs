@@ -1,4 +1,4 @@
 eclipse.preferences.version=1
-validator.Checked=src/main/webapp/application/modules/common/script.jsp,src/main/webapp/application/template/themes/base/js
+validator.Checked=src/main/webapp/application/template/themes/base/js,src/main/webapp/application/modules/common/script.jsp
 validator.Revalidate=true
 validator.Unchecked=
