@@ -3,11 +3,9 @@
 
 <html>
 <head>
-	<title>Free HTML5 Bootstrap Admin Template</title>
+	<title>J2EE基础框架</title>
 	<jsp:include page="../common/meta.jsp" flush="true"/>
 	<jsp:include page="../common/style.jsp" flush="true"/>
-	<jsp:include page="../common/script.jsp" flush="true"/>
-	<title>众诚天合数据恢复实训系统</title>
 </head>
 <body class="login_bodyBg">
 <div class="login_bg">
@@ -51,8 +49,7 @@
 	</div>
     <div class="company">北京众诚天合系统集成科技有限公司</div>
 </div>
-</body>
-
+	<jsp:include page="../common/script.jsp" flush="true"/>
 <script type="text/javascript">
 $(function() {
 	//注册表单验证
@@ -81,6 +78,6 @@ $(function() {
    	// 将options传给ajaxForm
 	$('#loginForm').ajaxForm(options);
 });
-
 </script>
+</body>
 </html>

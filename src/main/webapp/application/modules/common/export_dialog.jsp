@@ -1,5 +1,4 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
-
 <div class="search">
 	<div  id="exportList" class="portlert-form-list">
 		<div class="portlert-form-row">

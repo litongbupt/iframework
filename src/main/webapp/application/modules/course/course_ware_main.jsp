@@ -8,7 +8,7 @@
 	<jsp:include page="../common/meta.jsp" flush="true"/>
 	<jsp:include page="../common/style.jsp" flush="true"/>
 	<jsp:include page="../common/script.jsp" flush="true"/>
-	<title>众诚天合数据恢复实训系统</title>
+	<title>J2EE基础框架</title>
 
 <script type="text/javascript" src="<%=basePath%>ckeditor/ckeditor.js"></script>
 <script type="text/javascript" src="<%=basePath%>ckeditor/adapters/jquery.js"></script> 

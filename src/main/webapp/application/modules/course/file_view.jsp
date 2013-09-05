@@ -5,15 +5,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<base href="<%=basePath%>" />
+	<title>J2EE基础框架</title>
 	<jsp:include page="../common/meta.jsp" flush="true"/>
 	<jsp:include page="../common/style.jsp" flush="true"/>
-	<jsp:include page="../common/script.jsp" flush="true"/>
-<title>众诚天合数据恢复实训系统</title>
-    
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
-	<script type="text/javascript" src="<%=basePath%>flexpaper/flexpaper_flash.js"></script>
   </head>
   
   <body>
@@ -22,7 +16,8 @@
    <div style="width:100%;margin:0 auto;">
    	<a id="viewerPlaceHolder" style="width:100%;display:block"></a>
    </div>
-  </body>
+<jsp:include page="../common/script.jsp" flush="true"/>
+<script type="text/javascript" src="<%=basePath%>flexpaper/flexpaper_flash.js"></script>
 <script type="text/javascript">
    	var fileName = $('#fileName').val();
 	$(function() {
@@ -55,4 +50,5 @@
 	var clientHeight = document.documentElement.clientHeight;
 	$("#viewerPlaceHolder").css('height', clientHeight);
 </script>
+  </body>
 </html>

@@ -8,7 +8,7 @@
 	<jsp:include page="../common/meta.jsp" flush="true"/>
 	<jsp:include page="../common/style.jsp" flush="true"/>
 	<jsp:include page="../common/script.jsp" flush="true"/>
-<title>众诚天合数据恢复实训系统</title>
+<title>J2EE基础框架</title>
  	<script type="text/javascript" src="<%=basePath %>flowplayer/flowplayer-3.2.12.min.js"></script> 
 </head>
 <body>
@@ -16,7 +16,6 @@
 	<!-- this A tag is where your Flowplayer will be placed. it can be anywhere -->
 	<a href="/DRTS/download.action?inputPath=<%= request.getAttribute("inputPath")%>" id="player"></a>
 </div>
-</body>
 <script type="text/javascript">
 	flowplayer("player", "<%=basePath %>flowplayer/flowplayer-3.2.16.swf",{
 		clip: {
@@ -42,4 +41,5 @@
 		$("#video").css('margin-top', -height/2);
 	});
 </script>
+</body>
 </html>
