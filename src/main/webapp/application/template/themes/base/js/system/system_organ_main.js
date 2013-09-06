@@ -6,7 +6,7 @@ $(function(){
 //	}
 	//主页面表格
 	$("#organList").jqGrid({
-	    url:'/iframework/application/modules/system/organ_organList.action',
+	    url:golbal_context+"system/organ_organList.action",
 	    datatype: 'json',
 	    mtype: 'POST',
 	    width:'100%',

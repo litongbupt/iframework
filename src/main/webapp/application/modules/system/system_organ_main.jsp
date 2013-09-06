@@ -8,8 +8,6 @@
 <jsp:include page="../common/meta.jsp" flush="true" />
 <jsp:include page="../common/style.jsp" flush="true" />
 <title>J2EE基础框架</title>
-<script type="text/javascript"
-	src="<%=templatePath%>js/system/system_organ_main.js"></script>
 </head>
 
 <body id="activity_pane">
@@ -42,5 +40,6 @@
 	<%@ include file="../common/alert_dialog.jsp"%>
 	<%@ include file="../common/confirm_dialog.jsp"%>
 	<jsp:include page="../common/script.jsp" flush="true" />
+	<script type="text/javascript" src="<%=templatePath%>js/system/system_organ_main.js"></script>
 </body>
 </html>

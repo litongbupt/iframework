@@ -178,8 +178,6 @@ public class UserServiceImpl implements UserService{
 	
 	public List<Role> getAllRoles(){
 		RoleExample ex =  new RoleExample();
-		com.bupt.core.security.model.RoleExample.Criteria criteri = ex.createCriteria();
-		criteri.andNameIsNotNull();
 		List<Role> roles= roleMapper.selectByExample(ex);
 		return roles;
 	}
