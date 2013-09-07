@@ -9,8 +9,8 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
-import com.bupt.core.security.dao.RoleMapper;
-import com.bupt.core.security.model.Role;
+import com.bupt.core.system.dao.RoleMapper;
+import com.bupt.core.system.model.Role;
 
 public class RoleMapperTest {
 	

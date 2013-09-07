@@ -2,8 +2,6 @@ package com.bupt.core.system.model;
 
 import java.util.List;
 
-import com.bupt.core.security.model.Role;
-
 public class User {
 	
 	/**

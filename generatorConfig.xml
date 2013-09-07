@@ -46,7 +46,7 @@
            targetProject        生成的Java Bean放置在哪个项目的哪个目录下 
            targetPackage        生成的Java Bean的包名  
      -->
-    <javaModelGenerator targetPackage="com.bupt.core.system.model" targetProject="Base Framework For JavaEE/src/main/java/">
+    <javaModelGenerator targetPackage="com.bupt.core.system.model" targetProject="iframework/src/main/java/">
     	<!-- 是否在包名后加上scheme名称 -->
         <property name="enableSubPackages" value="true" />
         <!-- 从数据库返回的值被清理前后的空格 -->
@@ -56,11 +56,11 @@
            targetProject        生成的 SqlMap.xml 文件放置在哪个项目的哪个目录下 
            targetPackage        生成的 SqlMap.xml 文件的包名 
       --> 
-    <sqlMapGenerator targetPackage="com.bupt.core.system.dao" targetProject="Base Framework For JavaEE/src/main/java/">
+    <sqlMapGenerator targetPackage="com.bupt.core.system.dao" targetProject="iframework/src/main/java/">
    		 <property name="enableSubPackages" value="true" />
     </sqlMapGenerator>
     <!-- type 生成dao文件的类型，可选择IBATIS、SPRING、GENERIC-CI、GENERIC-SI。默认使用GENERIC-CI  -->
-    <javaClientGenerator targetPackage="com.bupt.core.system.dao" targetProject="Base Framework For JavaEE/src/main/java/" type="XMLMAPPER">
+    <javaClientGenerator targetPackage="com.bupt.core.system.dao" targetProject="iframework/src/main/java/" type="XMLMAPPER">
     	<property name="enableSubPackages" value="true" />
     </javaClientGenerator>
      <!-- 
@@ -77,7 +77,7 @@
           <table tableName="t_security_role"  domainObjectName="Role">
      	<generatedKey column="role_id" sqlStatement="MySql" identity="true"/>
      </table>
-       -->
+      
      <table tableName="t_security_user_info"  domainObjectName="UserInfo">
      	<generatedKey column="user_info_id" sqlStatement="MySql" identity="true"/>
      </table>
@@ -85,6 +85,12 @@
      <table tableName="t_security_department"  domainObjectName="Department">
      	<generatedKey column="department_id" sqlStatement="MySql" identity="true"/>
      </table>
+     -->
+     
+     <table tableName="t_security_role"  domainObjectName="Role">
+     	<generatedKey column="role_id" sqlStatement="MySql" identity="true"/>
+     </table>
+     
      <!--
     <table tableName="t_security_user" domainObjectName="User">
       -->

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.bupt.core.system.dao.UserRoleMapper" >
 
-	<select id="getRolesForUserById"  parameterType="int" resultType="com.bupt.core.security.model.Role">
+	<select id="getRolesForUserById"  parameterType="int" resultType="com.bupt.core.system.model.Role">
 		SELECT r.role_id,r.name,r.description,r.parent_id 
 		FROM t_security_role r,t_security_user_role ur
 		WHERE r.role_id=ur.role_id AND ur.user_id=#{id}

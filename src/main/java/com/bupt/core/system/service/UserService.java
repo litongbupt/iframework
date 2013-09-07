@@ -3,12 +3,12 @@ package com.bupt.core.system.service;
 import java.util.List;
 
 import com.bupt.core.base.service.BaseService;
-import com.bupt.core.security.model.Role;
 import com.bupt.core.system.dto.UserAddForm;
 import com.bupt.core.system.dto.UserCheckForm;
 import com.bupt.core.system.dto.UserDTO;
 import com.bupt.core.system.dto.UserModifyForm;
 import com.bupt.core.system.model.Department;
+import com.bupt.core.system.model.Role;
 import com.bupt.core.system.model.User;
 
 public interface UserService extends BaseService<User,UserDTO>{

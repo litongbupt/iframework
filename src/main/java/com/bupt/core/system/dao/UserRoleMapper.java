@@ -2,7 +2,7 @@ package com.bupt.core.system.dao;
 
 import java.util.List;
 
-import com.bupt.core.security.model.Role;
+import com.bupt.core.system.model.Role;
 import com.bupt.core.system.model.UserRole;
 
 

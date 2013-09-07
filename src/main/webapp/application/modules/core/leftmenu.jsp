@@ -20,6 +20,11 @@
 					<div class="icon2"
 						onClick="Menu('<%=modulesPath%>system/system_user_main.jsp');">用户管理</div>
 				</dt>
+				<dt>
+					<div class="icon3"
+						onClick="Menu('<%=modulesPath%>system/system_role_main.jsp');">角色管理</div>
+				</dt>	
+			
 				<!--
 				<dt>
 					<div class="icon4">题库管理</div>

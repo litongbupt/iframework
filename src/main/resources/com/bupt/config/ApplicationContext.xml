@@ -135,7 +135,7 @@ http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
 	</bean>
 	<!-- 角色Mapper -->
 	<bean id="roleMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">  
- 		 <property name="mapperInterface" value="com.bupt.core.security.dao.RoleMapper" />  
+ 		 <property name="mapperInterface" value="com.bupt.core.system.dao.RoleMapper" />  
  		 <property name="sqlSessionFactory" ref="sqlSessionFactory1" />  
 	</bean>
      
